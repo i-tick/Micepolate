@@ -1,3 +1,4 @@
+from analysisStripPlot import render_strip_plot
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -18,10 +19,19 @@ def analysis_page_content():
         with col1:
             missingness_statistics(col1)
             # render_box_plot(col1)
+            render_strip_plot(col1)
+            download_imputed_file = st.button("Download Imputed File")
+            if download_imputed_file:
+                if "imputed_file" in st.session_state:
+                    imputed_df = st.session_state["imputed_file"]
+                    imputed_df.to_csv("imputed_data.csv", index=False)
+                    st.success("Imputed file downloaded successfully.")
+                else:
+                    st.error("No imputed file available for download.")
 
         with col2:
             render_scatter_plots_with_scores(col2)
-            # render_density_plot(col2)
+            render_density_plot(col2)
 
     with tab2:
         st.header("Interpolation Analysis")
@@ -228,15 +238,7 @@ def render_scatter_plots_with_scores(col):
         quality_df = pd.DataFrame.from_dict(quality_metrics, orient="index")
 
         # Print or return the quality DataFrame
-        st.write("Imputation Quality Assessment", quality_df)
+        # st.write("Imputation Quality Assessment", quality_df)
 
-        # Button to download the imputed file
-        csv = after_df.to_csv(index=False).encode('utf-8')
-        st.download_button(
-            label="Download Imputed File",
-            data=csv,
-            file_name='imputed_file.csv',
-            mime='text/csv',
-        )
     else:
         col.warning('Error in Imputation')
