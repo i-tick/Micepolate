@@ -278,7 +278,7 @@ def configure_mice(selected_columns):
     if df is not None:
         df = st.session_state.get("file", None)
         st.markdown("<h5 style='text-align: center;'>Configure MICE</h5>", unsafe_allow_html=True)
-        selected_columns_for_mice = st.multiselect("Select the columns you want", st.session_state.file.columns,
+        selected_columns_for_mice = st.multiselect("Select the columns you want to impute:", st.session_state.file.columns,
                                                    key="columns_for_mice", default=selected_columns)
         k = 0
         error_message = ""
