@@ -66,7 +66,13 @@ def load_histogram(data, column_name):
 
     # Add imputed data histogram bars (yellow), overlaid
     if has_imputed:
-        fig.add_trace(go.Bar(x=bin_labels, y=imputed_hist_values, marker_color='yellow', name='Imputed Values'))
+        if column_name in imputed_data.columns:
+            imputed_nan_count = imputed_data[column_name].isna().sum()
+            if imputed_nan_count > 0:
+                fig.add_trace(go.Bar(x=['Empty in Imputed'], y=[nan_count], marker_color='red', name='Empty in Imputed'))
+            else:        
+                # Add imputed data histogram bars (yellow)
+                fig.add_trace(go.Bar(x=bin_labels, y=imputed_hist_values, marker_color='yellow', name='Imputed Values'))
 
     # Update layout
     fig.update_layout(

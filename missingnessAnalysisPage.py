@@ -68,60 +68,60 @@ def restructure_dataframe(data):
     return combined_df
 
 
-def second_page_content():
-    view_graphs = 0
+# def second_page_content():
+#     view_graphs = 0
 
-    # Create two columns for layout
-    col1, col2 = st.columns([3, 1])  # Adjust column widths as needed
+#     # Create two columns for layout
+#     col1, col2 = st.columns([3, 1])  # Adjust column widths as needed
 
-    # Display the pre-processed data on the left
-    with col1:
-        st.write("#### Pre-Processed Data: ")
-        st.write(highlight_nan_df(restructure_dataframe(st.session_state.file)))
+#     # Display the pre-processed data on the left
+#     with col1:
+#         st.write("#### Pre-Processed Data: ")
+#         st.write(highlight_nan_df(restructure_dataframe(st.session_state.file)))
 
-    # Display the selection box and inputs on the right
-    with col2:
-        st.write("#### Select the columns you want")
-        selected_columns_for_mice = st.multiselect("Columns", st.session_state.file.columns, key="columns_for_mice")
-        k = 0
-        if selected_columns_for_mice:
-            if len(selected_columns_for_mice) == 1:
-                st.write("You need more than one column to run the MICE Algorithm")
-                k = 1
-            for column in selected_columns_for_mice:
-                if st.session_state.file[column].dtype.kind not in "buifc":
-                    st.write(f"The column '{column}' isn't Numeric or Boolean and hence can't be considered for MICE Algorithm")
-                    k = 1
-            if k == 0:
-                st.markdown(
-                    """
-                    <style>
-                    .element-container:has(#button-after) + div button {
-                        font-weight: bold; /* Bold text */
-                        font-size: 20px; /* Font size */
-                    }
-                    .element-container:has(#button-after) + div button:hover {
-                        background-color: transparent; /* No background color */
-                        color: green; /* Text color */
-                        font-weight: bold; /* Bold text */
-                        font-size: 20px; /* Font size */
-                        border-color: green; /* Border color */
-                        border-width: 2.5px; /* Border width */
-                        border-style: solid; /* Border style */
-                    }
-                    </style>
-                    """,
-                    unsafe_allow_html=True,
-                )
+#     # Display the selection box and inputs on the right
+#     with col2:
+#         st.write("#### Select the columns you want")
+#         selected_columns_for_mice = st.multiselect("Columns", st.session_state.file.columns, key="columns_for_mice")
+#         k = 0
+#         if selected_columns_for_mice:
+#             if len(selected_columns_for_mice) == 1:
+#                 st.write("You need more than one column to run the MICE Algorithm")
+#                 k = 1
+#             for column in selected_columns_for_mice:
+#                 if st.session_state.file[column].dtype.kind not in "buifc":
+#                     st.write(f"The column '{column}' isn't Numeric or Boolean and hence can't be considered for MICE Algorithm")
+#                     k = 1
+#             if k == 0:
+#                 st.markdown(
+#                     """
+#                     <style>
+#                     .element-container:has(#button-after) + div button {
+#                         font-weight: bold; /* Bold text */
+#                         font-size: 20px; /* Font size */
+#                     }
+#                     .element-container:has(#button-after) + div button:hover {
+#                         background-color: transparent; /* No background color */
+#                         color: green; /* Text color */
+#                         font-weight: bold; /* Bold text */
+#                         font-size: 20px; /* Font size */
+#                         border-color: green; /* Border color */
+#                         border-width: 2.5px; /* Border width */
+#                         border-style: solid; /* Border style */
+#                     }
+#                     </style>
+#                     """,
+#                     unsafe_allow_html=True,
+#                 )
 
-                max_iterator = st.number_input("Insert the Max Iter Parameter", value=25, placeholder="Type a number...")
-                rand_state = st.number_input("Random State of the Model", value=0, placeholder="Type a number...")
+#                 max_iterator = st.number_input("Insert the Max Iter Parameter", value=25, placeholder="Type a number...")
+#                 rand_state = st.number_input("Random State of the Model", value=0, placeholder="Type a number...")
 
-                st.markdown('<span id="button-after"></span>', unsafe_allow_html=True)
-                if st.button("Implement MICE", key="implement_mice_button", use_container_width=True):
-                    new_file, _ = implement_MICE(st.session_state.file, selected_columns_for_mice, max_iterator, rand_state)
-                    st.session_state.page = 2
-                    st.rerun()
+#                 st.markdown('<span id="button-after"></span>', unsafe_allow_html=True)
+#                 if st.button("Implement MICE", key="implement_mice_button", use_container_width=True):
+#                     new_file, _ = implement_MICE(st.session_state.file, selected_columns_for_mice, max_iterator, rand_state)
+#                     st.session_state.page = 2
+#                     st.rerun()
 
 def render_missingness():
     # Add custom CSS for better spacing and reduced size
@@ -179,7 +179,8 @@ def render_missingness():
                 use_container_width=True,
                 on_select="rerun",
                 selection_mode=["multi-column"],  # Use the correct format
-                hide_index=False
+                hide_index=False,
+                height=600  # Increase the height of the dataframe
             )
 
 
