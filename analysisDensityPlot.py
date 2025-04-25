@@ -33,9 +33,9 @@ def render_density_plot(col):
 
     # Plot KDE distribution
     fig, ax = plt.subplots(figsize=(8, 5))
-    sns.kdeplot(original_vals, label="Original Values", shade=True, color="skyblue", ax=ax)
-    sns.kdeplot(imputed_vals, label="Imputed Values", shade=True, color="salmon", ax=ax)
-    sns.kdeplot(total_vals, label="Total (Original + Imputed)", shade=True, color="lightgreen", ax=ax)
+    sns.kdeplot(original_vals, label="Original Values", fill=True, color="skyblue", ax=ax)
+    sns.kdeplot(imputed_vals, label="Imputed Values", fill=True, color="salmon", ax=ax)
+    sns.kdeplot(total_vals, label="Total (Original + Imputed)", fill=True, color="lightgreen", ax=ax)
 
     ax.set_xlabel(selected_col)
     ax.set_ylabel("Density")
