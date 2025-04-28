@@ -2,12 +2,12 @@ import random
 import pandas as pd
 import streamlit as st
 from sklearn.preprocessing import LabelEncoder
-from customLableEncoder import *
+from customLableEncoder import CustomLabelEncoder
 from columnHistogram import load_histogram
-from missingnessScatter import * 
-from logisticMissingnessSignificance import *
-from stackedCategoricalCounts import *
-from mice import *
+from missingnessScatter import render_missingness_scatter_plot
+from logisticMissingnessSignificance import populateMissingnessSignificanceHeatmap
+from stackedCategoricalCounts import plot_stacked_bar_graph
+from mice import implement_MICE, implement_BART
 import numpy as np
 
 def highlight_nan_df(file):

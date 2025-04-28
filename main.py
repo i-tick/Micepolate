@@ -1,6 +1,7 @@
 import streamlit as st
 from analysisPage import *
-from missingnessAnalysisPage import *
+from missingnessAnalysisPage import load_file, second_page_content
+
 
 st.set_page_config(layout='wide')
 pd.set_option("styler.render.max_elements", 14758254)
